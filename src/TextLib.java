@@ -1,6 +1,9 @@
+import oracle.jrockit.jfr.StringConstantPool;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -8,6 +11,7 @@ import java.util.Scanner;
 
 public class TextLib {
 
+    // Takes the filename and pulls up the file and reads it as a String
     public static String readFileAsString(String filename) {
         Scanner scanner;
         StringBuilder output = new StringBuilder();
@@ -28,6 +32,7 @@ public class TextLib {
         return output.toString();
     }
 
+    // Splits the whole block string into sentances
     public static ArrayList<String> splitIntoSentences(String text) {
         ArrayList<String> output = new ArrayList<>();
 
@@ -50,6 +55,33 @@ public class TextLib {
             output.add(sentence);
 
         return output;
+    }
+
+    // Read the Doc as a String
+    public static ArrayList<FileInfo> readDocInfo(String filename){
+        ArrayList<FileInfo> fileInfoList = new ArrayList<>();
+        Scanner scanner;
+
+        try {
+            scanner = new Scanner(new FileReader(filename));
+            scanner.nextLine();
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] Colmuns = line.split(",");
+                String filetitle = Colmuns[0].trim();
+                double Readability = Double.parseDouble(Colmuns[91].trim());
+                double gradelevel = Double.parseDouble(Colmuns[92].trim());
+
+                FileInfo FI = new FileInfo(filetitle, Readability, gradelevel);
+                fileInfoList.add(FI);
+            }
+
+            scanner.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found " + filename);
+        }
+        return fileInfoList;
     }
 
     public static ArrayList<Word> readSyllablesFile(String filename) {
@@ -94,5 +126,50 @@ public class TextLib {
         return line.substring(0, line.indexOf("="));
     }
 
+    public static ArrayList<FileInfo> getActualReadAbility(String filename){
+        Scanner scanner;
+        double readabilty = 0;
+        ArrayList<FileInfo> AllFileInfo = new ArrayList<>();
 
+        try {
+            scanner = new Scanner(new FileReader(filename));
+            scanner.nextLine();
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] lineinfo = line.split(",");
+                String name = lineinfo[0].trim();
+                double readability = Double.parseDouble(lineinfo[91].trim());
+                double grade = Integer.parseInt(lineinfo[92].trim());
+
+                FileInfo fileinfo = new FileInfo(name, readability, grade);
+                AllFileInfo.add(fileinfo);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found " + filename);
+        }
+        return AllFileInfo;
+    }
+
+    /*
+    private static String filenameFix(String filename){
+        String newfilename = "";
+        ArrayList<Integer> indexofdashs = new ArrayList<>();
+        for (int i = 0; i < filename.length(); i++) {
+            if("-".equals(filename.substring(i,i+1))) {
+                indexofdashs.add(i);
+            }
+        }
+        String nodashes = filename.replaceAll("-"," ");
+        for (int i = 0; i < nodashes.length(); i++) {
+            if(i == indexofdashs.get(indexofdashs.size()-1)){
+                newfilename = newfilename + "-";
+            } else {
+                newfilename = newfilename + nodashes.substring(i,i+1);
+            }
+        }
+
+        return newfilename;
+    }
+    */
 }
