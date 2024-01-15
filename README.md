@@ -1,2 +1,2 @@
 # TextAnalysis
-Literally the name, testing different ways fo text analysis
+Testing different ways for text analysis
