@@ -1,5 +1,3 @@
-import com.sun.org.apache.xpath.internal.compiler.Keywords;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -9,7 +7,6 @@ import java.util.Scanner;
 
 public class Document {
     private String text;
-    private String worduseData = readFileAsString("Word&Use");
     private ArrayList<String> sentences;
     private ArrayList<String> words;
     private ArrayList<String> vocab;

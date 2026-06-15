@@ -1,9 +1,6 @@
-import oracle.jrockit.jfr.StringConstantPool;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Locale;

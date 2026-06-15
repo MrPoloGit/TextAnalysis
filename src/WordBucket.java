@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class WordBucket {
@@ -19,7 +18,6 @@ public class WordBucket {
         words.add(word);
 
         if(!unique.contains(word)) unique.add(word);
-        if(size() == )
     }
 
     public void add(String word, int count){
@@ -70,8 +68,9 @@ public class WordBucket {
         return freqword;
     }
 
-    public ArrayList<String> getTopN(){
-
+    public ArrayList<String> getTopN(int n){
+        ArrayList<String> uniqueWords = getUnique();
+        return new ArrayList<>(uniqueWords.subList(0, Math.min(n, uniqueWords.size())));
     }
 
 }

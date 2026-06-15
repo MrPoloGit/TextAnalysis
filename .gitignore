@@ -1,3 +1,25 @@
-# Created by .ignore support plugin (hsz.mobi)
-.idea
+# IntelliJ IDEA
+.idea/
 *.iml
+
+# Maven
+target/
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# Compiled class files
+bin/
+*.class
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
